@@ -12,13 +12,9 @@ import RxSwift
 public typealias ItemResult = ([Item]) -> Void
 
 protocol RepositoryInterface {
-    // Get
     func getItems(result: @escaping ItemResult)
-
-    // Delete
-
+    func deleteItem(with id: String, result: @escaping (Bool) -> Void)
     // Add
-
     // Modify
 }
 
@@ -44,6 +40,18 @@ extension Repository: RepositoryInterface {
 
             case .failure:
                 result([])
+            }
+        }
+    }
+
+    func deleteItem(with id: String, result: @escaping (Bool) -> Void) {
+        provider.request(.deleteItem(id: id)) { response in
+            switch response {
+            case .success:
+                result(true)
+
+            case .failure:
+                result(false)
             }
         }
     }

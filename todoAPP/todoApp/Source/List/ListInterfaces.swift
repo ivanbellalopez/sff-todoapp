@@ -20,7 +20,7 @@ protocol ListPresenterInterface {
 
 protocol ListInteractorInterface: AnyObject {
     func getItems(completion: @escaping (Bool) -> Void)
-    func deleteItem(with id: String)
+    func deleteItem(with id: String, completion: @escaping (Bool) -> Void)
     func getItem(with id: String) -> Item
 }
 

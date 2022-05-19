@@ -13,6 +13,7 @@ public enum RepositoryTarget {
     case getItems
 
     // Delete
+    case deleteItem(id: String)
 
     // Add
 
@@ -26,6 +27,10 @@ extension RepositoryTarget: TargetType {
         switch self {
         case .getItems:
             return "/api/Task"
+
+        case .deleteItem(let id):
+            return "/api/Task/\(id)"
+
         }
     }
 
@@ -33,12 +38,14 @@ extension RepositoryTarget: TargetType {
         switch self {
         case .getItems:
             return .get
+        case .deleteItem:
+            return .delete
         }
     }
 
     public var task: Task {
         switch self {
-        case .getItems:
+        case .getItems, .deleteItem:
             return .requestPlain
         }
     }

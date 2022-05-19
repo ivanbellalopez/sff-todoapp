@@ -37,7 +37,10 @@ extension ListPresenter: ListPresenterInterface {
     }
 
     func deleteItemTapped(with id: String) {
-        interactor.deleteItem(with: id)
-        view?.updateView(with: todoItems)
+        interactor.deleteItem(with: id) { [weak self] result in
+            if result {
+                self?.view?.updateView(with: todoItems)
+            }
+        }
     }
 }

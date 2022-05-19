@@ -17,9 +17,11 @@ extension ListInteractor: ListInteractorInterface {
         }
     }
 
-    func deleteItem(with id: String) {
-        if let index = todoItems.firstIndex(where: {$0.id == id}) {
-            todoItems.remove(at: index)
+    func deleteItem(with id: String, completion: @escaping (Bool) -> Void) {
+        repository.deleteItem(with: id) { [weak self] result in
+            if result {
+                self?.getItems(completion: completion)
+            }
         }
     }
 
