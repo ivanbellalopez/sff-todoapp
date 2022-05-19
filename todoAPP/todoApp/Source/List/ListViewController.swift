@@ -13,6 +13,7 @@ final class ListViewController: UIViewController {
 
     // MARK: - Vars
     private let presenter: ListPresenterInterface
+    private var items: [Item] = []
 
     // MARK: - Init
 
@@ -76,14 +77,15 @@ extension ListViewController: ListViewInterface {
         self.title = title
     }
 
-    func updateView() {
+    func updateView(with items: [Item]) {
+        self.items = items
         tableView.reloadData()
     }
 }
 
 extension ListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        todoItems.count
+        items.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

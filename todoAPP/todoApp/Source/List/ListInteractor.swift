@@ -1,13 +1,20 @@
 import Foundation
 
 final class ListInteractor {
+    private let repository: RepositoryInterface
 
+    init(repository: RepositoryInterface) {
+        self.repository = repository
+    }
 }
 
 extension ListInteractor: ListInteractorInterface {
 
-    func fetchItems() {
-
+    func getItems(completion: @escaping (Bool) -> Void) {
+        repository.getItems { itemArray in
+            todoItems = itemArray
+            completion(true)
+        }
     }
 
     func deleteItem(with id: String) {

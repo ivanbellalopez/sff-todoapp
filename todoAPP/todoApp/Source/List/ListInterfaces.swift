@@ -2,7 +2,7 @@ import Foundation
 
 protocol ListViewInterface: AnyObject {
     func setupView(title: String)
-    func updateView()
+    func updateView(with items: [Item])
 }
 
 protocol ListPresenterInterface {
@@ -19,7 +19,7 @@ protocol ListPresenterInterface {
 }
 
 protocol ListInteractorInterface: AnyObject {
-    func fetchItems()
+    func getItems(completion: @escaping (Bool) -> Void)
     func deleteItem(with id: String)
     func getItem(with id: String) -> Item
 }

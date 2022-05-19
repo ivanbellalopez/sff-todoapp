@@ -1,4 +1,5 @@
 import Foundation
+import RxSwift
 
 final class ListPresenter {
 
@@ -19,8 +20,11 @@ extension ListPresenter: ListPresenterInterface {
     }
 
     func viewWillAppear() {
-        interactor.fetchItems()
-        view?.updateView()
+        interactor.getItems { [weak self] result in
+            if result {
+                self?.view?.updateView(with: todoItems)
+            }
+        }
     }
 
     func addItemTapped() {
@@ -34,6 +38,6 @@ extension ListPresenter: ListPresenterInterface {
 
     func deleteItemTapped(with id: String) {
         interactor.deleteItem(with: id)
-        view?.updateView()
+        view?.updateView(with: todoItems)
     }
 }
