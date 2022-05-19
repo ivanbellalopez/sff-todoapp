@@ -11,17 +11,16 @@ final class DetailItemInteractor {
 }
 
 extension DetailItemInteractor: DetailItemInteractorInterface {
-    func getItem(with id: String, completion: @escaping (Item?) -> Void) {
+
+    func getItem(with id: String, completion: @escaping ItemResult) {
         repository.getItem(with: id) { item in
             completion(item)
         }
     }
 
-    func updateItem(_ item: Item) {
-        if let index = todoItems.firstIndex(where: {$0.id == item.id}) {
-            todoItems[index] = item
+    func updateItem(_ item: Item, completion: @escaping BoolResult) {
+        repository.updateItem(item) { result in
+            completion(result)
         }
     }
 }
-
-private extension DetailItemInteractor {}

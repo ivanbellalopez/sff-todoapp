@@ -27,9 +27,12 @@ extension DetailItemPresenter: DetailItemPresenterInterface {
     }
 
     func didUpdateButtonTapped(name: String, description: String) {
-//        let item = Item(id: item.id, name: name, description: description)
-//        interactor.updateItem(item)
-        wireframe.goBack()
+        let item = Item.init(id: itemId, name: name, description: description)
+        interactor.updateItem(item) { [weak self] result in
+            if result {
+                self?.wireframe.goBack()
+            }
+        }
     }
 }
 

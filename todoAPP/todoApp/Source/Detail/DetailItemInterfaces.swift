@@ -14,8 +14,8 @@ protocol DetailItemPresenterInterface {
 }
 
 protocol DetailItemInteractorInterface: AnyObject {
-    func getItem(with id: String, completion: @escaping (Item?) -> Void)
-    func updateItem(_ item: Item)
+    func getItem(with id: String, completion: @escaping ItemResult)
+    func updateItem(_ item: Item, completion: @escaping BoolResult)
 }
 
 protocol DetailItemWireframeInterface: AnyObject {

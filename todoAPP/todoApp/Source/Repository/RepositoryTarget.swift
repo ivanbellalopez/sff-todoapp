@@ -20,7 +20,7 @@ public enum RepositoryTarget {
     case addItem(_ item: Item)
 
     // Modify
-
+    case updateItem(_ item: Item)
 }
 
 extension RepositoryTarget: TargetType {
@@ -34,6 +34,9 @@ extension RepositoryTarget: TargetType {
         case .getItem(let id) , .deleteItem(let id):
             return "/api/Task/\(id)"
 
+        case .updateItem(let item):
+            return "/api/Task/\(item.id)"
+
         }
     }
 
@@ -45,6 +48,8 @@ extension RepositoryTarget: TargetType {
             return .delete
         case .addItem:
             return .post
+        case .updateItem:
+            return .put
         }
     }
 
@@ -52,7 +57,7 @@ extension RepositoryTarget: TargetType {
         switch self {
         case .getItems, .getItem, .deleteItem:
             return .requestPlain
-        case .addItem(let item):
+        case .addItem(let item), .updateItem(let item):
             return .requestJSONEncodable(item)
         }
     }

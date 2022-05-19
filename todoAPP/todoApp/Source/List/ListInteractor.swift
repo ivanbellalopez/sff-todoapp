@@ -10,14 +10,14 @@ final class ListInteractor {
 
 extension ListInteractor: ListInteractorInterface {
 
-    func getItems(completion: @escaping (Bool) -> Void) {
+    func getItems(completion: @escaping BoolResult) {
         repository.getItems { itemArray in
             todoItems = itemArray
             completion(true)
         }
     }
 
-    func deleteItem(with id: String, completion: @escaping (Bool) -> Void) {
+    func deleteItem(with id: String, completion: @escaping BoolResult) {
         repository.deleteItem(with: id) { [weak self] result in
             if result {
                 self?.getItems(completion: completion)

@@ -9,7 +9,7 @@ final class AddItemInteractor {
 }
 
 extension AddItemInteractor: AddItemInteractorInterface {
-    func addItem(name: String, description: String, completion: @escaping (Bool) -> Void) {
+    func addItem(name: String, description: String, completion: @escaping BoolResult) {
         let item = createItem(name: name, description: description)
         repository.addItem(item) { result in
             completion(true)

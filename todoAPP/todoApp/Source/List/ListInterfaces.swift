@@ -19,8 +19,8 @@ protocol ListPresenterInterface {
 }
 
 protocol ListInteractorInterface: AnyObject {
-    func getItems(completion: @escaping (Bool) -> Void)
-    func deleteItem(with id: String, completion: @escaping (Bool) -> Void)
+    func getItems(completion: @escaping BoolResult)
+    func deleteItem(with id: String, completion: @escaping BoolResult)
     func getItem(with id: String) -> Item
 }
 
