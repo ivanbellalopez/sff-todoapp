@@ -11,6 +11,7 @@ import Moya
 public enum RepositoryTarget {
     // Get
     case getItems
+    case getItem(id: String)
 
     // Delete
     case deleteItem(id: String)
@@ -19,6 +20,7 @@ public enum RepositoryTarget {
     case addItem(_ item: Item)
 
     // Modify
+
 }
 
 extension RepositoryTarget: TargetType {
@@ -29,7 +31,7 @@ extension RepositoryTarget: TargetType {
         case .getItems, .addItem:
             return "/api/Task"
 
-        case .deleteItem(let id):
+        case .getItem(let id) , .deleteItem(let id):
             return "/api/Task/\(id)"
 
         }
@@ -37,7 +39,7 @@ extension RepositoryTarget: TargetType {
 
     public var method: Moya.Method {
         switch self {
-        case .getItems:
+        case .getItems, .getItem:
             return .get
         case .deleteItem:
             return .delete
@@ -48,7 +50,7 @@ extension RepositoryTarget: TargetType {
 
     public var task: Task {
         switch self {
-        case .getItems, .deleteItem:
+        case .getItems, .getItem, .deleteItem:
             return .requestPlain
         case .addItem(let item):
             return .requestJSONEncodable(item)

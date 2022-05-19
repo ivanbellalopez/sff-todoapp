@@ -13,6 +13,7 @@ public typealias ItemResult = ([Item]) -> Void
 
 protocol RepositoryInterface {
     func getItems(result: @escaping ItemResult)
+    func getItem(with id: String, result: @escaping (Item?) -> Void)
     func deleteItem(with id: String, result: @escaping (Bool) -> Void)
     func addItem(_ item: Item, result: @escaping (Bool) -> Void)
     // Modify
@@ -40,6 +41,25 @@ extension Repository: RepositoryInterface {
 
             case .failure:
                 result([])
+            }
+        }
+    }
+
+    func getItem(with id: String, result: @escaping (Item?) -> Void) {
+        provider.request(.getItem(id: id)) { response in
+            switch response {
+            case .success(let data):
+                do {
+                    let item = try data
+                        .filterSuccessfulStatusCodes()
+                        .map(Item.self)
+                    result(item)
+                } catch {
+                    result(nil)
+                }
+
+            case .failure:
+                result(nil)
             }
         }
     }

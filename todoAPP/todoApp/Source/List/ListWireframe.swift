@@ -12,7 +12,7 @@ final class ListWireframe: ListWireframeInterface {
     }
 
     func presentDetailItem(_ item: Item) {
-        let detailItemViewController = DetailItemConfigurator.prepareScene(for: item)
+        let detailItemViewController = DetailItemConfigurator.prepareScene(for: item.id)
         presentingViewController?.show(detailItemViewController, sender: self)
     }
 }
