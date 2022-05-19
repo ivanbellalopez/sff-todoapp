@@ -15,7 +15,7 @@ protocol AddItemPresenterInterface {
 }
 
 protocol AddItemInteractorInterface: AnyObject {
-    func addItem(name: String, description: String)
+    func addItem(name: String, description: String, completion: @escaping (Bool) -> Void)
 }
 
 protocol AddItemWireframeInterface: AnyObject {

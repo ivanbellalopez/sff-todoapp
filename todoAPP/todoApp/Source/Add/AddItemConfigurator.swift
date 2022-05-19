@@ -3,7 +3,8 @@ import UIKit
 final class AddItemConfigurator {
 
     class func prepareScene() -> AddItemViewController {
-        let interactor = AddItemInteractor()
+        let repository = Repository()
+        let interactor = AddItemInteractor(repository: repository)
         let wireframe = AddItemWireframe()
         let presenter = AddItemPresenter(interactor: interactor, wireframe: wireframe)
         let viewController = AddItemViewController(presenter: presenter)

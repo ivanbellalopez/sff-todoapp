@@ -16,6 +16,7 @@ public enum RepositoryTarget {
     case deleteItem(id: String)
 
     // Add
+    case addItem(_ item: Item)
 
     // Modify
 }
@@ -25,7 +26,7 @@ extension RepositoryTarget: TargetType {
 
     public var path: String {
         switch self {
-        case .getItems:
+        case .getItems, .addItem:
             return "/api/Task"
 
         case .deleteItem(let id):
@@ -40,6 +41,8 @@ extension RepositoryTarget: TargetType {
             return .get
         case .deleteItem:
             return .delete
+        case .addItem:
+            return .post
         }
     }
 
@@ -47,6 +50,8 @@ extension RepositoryTarget: TargetType {
         switch self {
         case .getItems, .deleteItem:
             return .requestPlain
+        case .addItem(let item):
+            return .requestJSONEncodable(item)
         }
     }
 

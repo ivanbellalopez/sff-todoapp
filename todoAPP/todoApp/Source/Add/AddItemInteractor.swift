@@ -1,17 +1,19 @@
 import Foundation
 
 final class AddItemInteractor {
+    private let repository: RepositoryInterface
 
-    // Set the apropiate repository for your interactor.
-    // REMEMBER configure set the instancie on the AddItemConfigurator
-    // var repository: AddItemRepository!
+    init(repository: RepositoryInterface) {
+        self.repository = repository
+    }
 }
 
 extension AddItemInteractor: AddItemInteractorInterface {
-    func addItem(name: String, description: String) {
+    func addItem(name: String, description: String, completion: @escaping (Bool) -> Void) {
         let item = createItem(name: name, description: description)
-        todoItems.append(item)
-        print(item)
+        repository.addItem(item) { result in
+            completion(true)
+        }
     }
 }
 

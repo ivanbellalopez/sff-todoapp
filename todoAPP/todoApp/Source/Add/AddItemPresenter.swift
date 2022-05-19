@@ -20,8 +20,11 @@ extension AddItemPresenter: AddItemPresenterInterface {
     }
 
     func didAddButtonTapped(name: String, description: String) {
-        interactor.addItem(name: name, description: description)
-        wireframe.dismiss()
+        interactor.addItem(name: name, description: description) { [weak self] result in
+            if result {
+                self?.wireframe.dismiss()
+            }
+        }
     }
 
     func didCloseButtonTapped() {

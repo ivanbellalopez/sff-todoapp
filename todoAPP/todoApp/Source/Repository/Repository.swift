@@ -14,7 +14,7 @@ public typealias ItemResult = ([Item]) -> Void
 protocol RepositoryInterface {
     func getItems(result: @escaping ItemResult)
     func deleteItem(with id: String, result: @escaping (Bool) -> Void)
-    // Add
+    func addItem(_ item: Item, result: @escaping (Bool) -> Void)
     // Modify
 }
 
@@ -46,6 +46,18 @@ extension Repository: RepositoryInterface {
 
     func deleteItem(with id: String, result: @escaping (Bool) -> Void) {
         provider.request(.deleteItem(id: id)) { response in
+            switch response {
+            case .success:
+                result(true)
+
+            case .failure:
+                result(false)
+            }
+        }
+    }
+
+    func addItem(_ item: Item, result: @escaping (Bool) -> Void) {
+        provider.request(.addItem(item)) { response in
             switch response {
             case .success:
                 result(true)
